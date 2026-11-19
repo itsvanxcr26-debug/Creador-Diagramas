@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Diagramas de Flujo</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <div id="pantalla-auth" class="overlay-auth">
+        <div class="tarjeta-auth">
+            <h2>Editor de Diagramas de Flujo</h2>
+            <p class="subtitulo-auth">Acceso y Registro de Usuario</p>
+
+            <div class="tabs-auth">
+                <button type="button" id="tab-login" class="tab-btn activa">Iniciar Sesión</button>
+                <button type="button" id="tab-registro" class="tab-btn">Registrarse</button>
+            </div>
+
+            <form id="form-login">
+                <div class="campo-auth">
+                    <label for="login-usuario">Usuario o Correo Electrónico</label>
+                    <input type="text" id="login-usuario" required>
+                </div>
+                <div class="campo-auth">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn-auth-principal">Ingresar</button>
+            </form>
+
+            <form id="form-registro" style="display: none;">
+                <div class="campo-auth">
+                    <label for="reg-nombre">Nombre</label>
+                    <input type="text" id="reg-nombre" required>
+                </div>
+                <div class="campo-auth">
+                    <label for="reg-correo">Correo</label>
+                    <input type="email" id="reg-correo" required>
+                </div>
+                <div class="campo-auth">
+                    <label for="reg-usuario">Usuario</label>
+                    <input type="text" id="reg-usuario" required>
+                </div>
+                <div class="campo-auth">
+                    <label for="reg-password">Contraseña</label>
+                    <input type="password" id="reg-password" required>
+                </div>
+                <button type="submit" class="btn-auth-principal">Registrar Usuario</button>
+            </form>
+
+            <p id="mensaje-auth" class="mensaje-error"></p>
+        </div>
+    </div>
+
+    <header>
+        <div>
+            Editor de Diagramas de Flujo
+            <span class="badge-usuario" id="usuario-activo-badge">Invitado</span>
+        </div>
+        <div class="instrucciones-header">
+            Arrastra símbolos al lienzo | Clic: seleccionar | Doble clic: editar instrucciones (mín. 2 en SI/NO)
+            <button type="button" id="btn-cerrar-sesion" class="btn-salir">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <aside>
+        <h3>Panel de Símbolos</h3>
+        <div class="simbolo-item" draggable="true" data-type="inicio">Inicio</div>
+        <div class="simbolo-item" draggable="true" data-type="declaracion">Declaración de variables</div>
+        <div class="simbolo-item" draggable="true" data-type="entrada">Entrada de datos</div>
+        <div class="simbolo-item" draggable="true" data-type="salida">Salida de datos</div>
+        <div class="simbolo-item" draggable="true" data-type="sentencia">Sentencia simple</div>
+        <div class="simbolo-item" draggable="true" data-type="if">Condicional (if)</div>
+        <div class="simbolo-item" draggable="true" data-type="for">Repetición (for)</div>
+        <div class="simbolo-item" draggable="true" data-type="while">Repetición (while)</div>
+        <div class="simbolo-item" draggable="true" data-type="dowhile">Repetición (do while)</div>
+        <div class="simbolo-item" draggable="true" data-type="fin">Fin del diagrama</div>
+
+        <hr class="separador">
+
+        <h3>Panel de Herramientas</h3>
+        <div class="tools-group">
+            <label for="color-contorno">Color de contorno:</label>
+            <input type="color" id="color-contorno" value="#c2185b">
+
+            <label for="color-relleno">Color de relleno:</label>
+            <input type="color" id="color-relleno" value="#fce4ec">
+
+            <label for="tamano-letra">Tamaño de letra (px):</label>
+            <input type="number" id="tamano-letra" min="10" max="28" value="13">
+        </div>
+
+        <button type="button" class="btn-accion btn-eliminar" id="btn-eliminar">Eliminar Elemento</button>
+
+        <hr class="separador">
+
+        <h3>Guardar / Cargar XML</h3>
+        <div class="tools-group">
+            <label for="nombre-diagrama">Nombre del diagrama:</label>
+            <input type="text" id="nombre-diagrama" class="select-diagramas" placeholder="Ej. diagrama1">
+            <button type="button" class="btn-accion btn-guardar" id="btn-guardar">Guardar Diagrama</button>
+
+            <label for="lista-diagramas">Diagramas del usuario:</label>
+            <select id="lista-diagramas" class="select-diagramas">
+                <option value="">-- Selecciona un diagrama --</option>
+            </select>
+            <button type="button" class="btn-accion btn-cargar" id="btn-cargar">Cargar Diagrama</button>
+        </div>
+    </aside>
+
+    <main id="lienzo">
+        <svg id="svg-canvas">
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#ad1457"></path>
+                </marker>
+            </defs>
+        </svg>
+
+        <div class="caja-texto-derecha">
+            <h4>Notas / Instrucciones</h4>
+            <p contenteditable="true">Mínimo 2 instrucciones en SI y 2 en NO para condicionales y repetitivas.</p>
+        </div>
+    </main>
+
+    <footer>
+        <h4>CÓDIGO GENERADO EN C</h4>
+        <pre id="codigo-c">void main() {
+}</pre>
+    </footer>
+
+    <script src="flujo.js"></script>
+</body>
+</html>
